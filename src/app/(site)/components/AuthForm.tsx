@@ -40,20 +40,42 @@ export default function AuthForm(props: Props) {
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
+
         if (variant === "REGISTER") {
             axios
-                .post("../../api/register", data)
-                .catch(() => toast.error("something went wrong"))
+                .post("/api/register", data)
+                // .then(() =>
+                //     signIn("credentials", {
+                //         redirect: false,
+                //         ...data,
+                //     })
+                // )
+                // .then((callback) => {
+                //     if (callback?.error) {
+                //         toast.error("Invalid credentials!");
+                //     }
+
+                //     if (callback?.ok) {
+                //         //   router.push('/conversations')
+                //     }
+                // })
+                .catch(() => toast.error("Something went wrong!"))
                 .finally(() => setIsLoading(false));
         }
+
         if (variant === "LOGIN") {
-            signIn("credentials", { ...data, redirect: false })
+            signIn("credentials", {
+                redirect: false,
+                ...data,
+            })
                 .then((callback) => {
                     if (callback?.error) {
-                        toast.error("Invalid credentials");
+                        toast.error("Invalid credentials!");
                     }
-                    if (callback?.ok && !callback.error) {
-                        toast.success("Loged in");
+
+                    if (callback?.ok) {
+                        //   router.push('/conversations')
+                        toast.success("Loged in!");
                     }
                 })
                 .finally(() => setIsLoading(false));
