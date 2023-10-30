@@ -52,12 +52,12 @@ export default function AuthForm(props: Props) {
         if (variant === "REGISTER") {
             axios
                 .post("/api/register", data)
-                // .then(() =>
-                //     signIn("credentials", {
-                //         redirect: false,
-                //         ...data,
-                //     })
-                // )
+                .then(() =>
+                    signIn("credentials", {
+                        redirect: false,
+                        ...data,
+                    })
+                )
                 // .then((callback) => {
                 //     if (callback?.error) {
                 //         toast.error("Invalid credentials!");
@@ -81,8 +81,8 @@ export default function AuthForm(props: Props) {
                         toast.error("Invalid credentials!");
                     }
 
-                    if (callback?.ok) {
-                        //   router.push('/conversations')
+                    if (callback?.ok && !callback.error) {
+                        router.push("/users");
                         toast.success("Loged in!");
                     }
                 })
