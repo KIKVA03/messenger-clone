@@ -15,7 +15,6 @@ const DesktopItem: React.FC<DesktopItemProps> = ({ label, href, icon: Icon, acti
             return onClick();
         }
     };
-
     return (
         <li onClick={handleClick} key={label}>
             <Link
