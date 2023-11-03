@@ -2,6 +2,7 @@
 
 import useConversation from "@/app/hooks/useConversation";
 import useRoutes from "@/app/hooks/useRouter";
+import MobileItem from "./MobileItem";
 
 const MobileFooter = () => {
     const routes = useRoutes();
@@ -10,7 +11,7 @@ const MobileFooter = () => {
         return null;
     }
     return (
-        <div className="fixe flex justify-between w-full z-40  items-center bg-white border-t-[1px] lg:hidden">
+        <div className="fixed flex justify-between w-full bottom-0 z-40  items-center bg-white border-t-[1px] lg:hidden">
             {routes.map((route) => (
                 <MobileItem
                     key={route.href}

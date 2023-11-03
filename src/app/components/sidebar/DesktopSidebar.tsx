@@ -3,7 +3,13 @@ import useRouter from "@/app/hooks/useRouter";
 import React, { useState } from "react";
 import DesktopItem from "./DesktopItem";
 
-const DesktopSidebar = () => {
+import { User } from "@prisma/client";
+//es imitom modis es type rom npx prisma db pushi gvak gashvebuli da avtomaturad xedavs
+interface DesktopSidebarProps {
+    currentUser: User;
+}
+
+const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
     const routes = useRouter();
     const [isOpen, setIsOpen] = useState();
     return (
