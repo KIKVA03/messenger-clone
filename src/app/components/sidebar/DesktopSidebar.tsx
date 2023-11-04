@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import DesktopItem from "./DesktopItem";
 
 import { User } from "@prisma/client";
+import Avatar from "../Avatar";
 //es imitom modis es type rom npx prisma db pushi gvak gashvebuli da avtomaturad xedavs
 interface DesktopSidebarProps {
     currentUser: User;
@@ -11,7 +12,8 @@ interface DesktopSidebarProps {
 
 const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
     const routes = useRouter();
-    const [isOpen, setIsOpen] = useState();
+    const [isOpen, setIsOpen] = useState<boolean>();
+    console.log(currentUser);
     return (
         <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-20 lg:px-6 lg:overflow-y-auto lg:bg-white lg:border-r-[1px] lg:pb-4 lg:flex lg:flex-col justify-between">
             <nav className="mp-4 flex flex-col justify-between">
@@ -27,6 +29,14 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
                         />
                     ))}
                 </ul>
+            </nav>
+            <nav className="mt-4 flex flex-col justify-between items-center">
+                <div
+                    onClick={() => setIsOpen(true)}
+                    className="cursor-pointer hover:opacity-75 transition"
+                >
+                    <Avatar user={currentUser} />
+                </div>
             </nav>
         </div>
     );
