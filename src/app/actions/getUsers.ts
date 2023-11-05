@@ -1,5 +1,6 @@
 import prisma from "@/app/libs/prismadb";
 import getSession from "./getSession";
+import { use } from "react";
 
 const getUsers = async () => {
     const session = await getSession();
@@ -7,7 +8,7 @@ const getUsers = async () => {
         return [];
     }
     try {
-        const user = await prisma.user.findMany({
+        const users = await prisma.user.findMany({
             orderBy: {
                 createdAt: "desc",
             },
@@ -17,7 +18,10 @@ const getUsers = async () => {
                 },
             },
         });
+        return users;
     } catch (error) {
         return [];
     }
 };
+
+export default getUsers;
