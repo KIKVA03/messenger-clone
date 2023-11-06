@@ -2,7 +2,7 @@
 const nextConfig = {
     experimental: {
         appDir: true,
-        swcPlugins: [["next-superJson-plugin", {}]],
+        swcPlugins: [["next-superjson-plugin", {}]],
     },
     images: {
         domains: [
