@@ -11,20 +11,21 @@ type Props = {
 
 const UserBox: React.FC<Props> = ({ data }) => {
     const router = useRouter();
-    const [loading, setLoading] = useState(false);
+    const [loading, setIsLoading] = useState(false);
 
     const handleClick = useCallback(() => {
-        setLoading(true);
+        setIsLoading(true);
 
         axios
-            .post("/api/conversations", { useId: data.id })
+            .post("/api/conversations", { userId: data.id })
             .then((data) => {
                 router.push(`/conversations/${data.data.id}`);
             })
             .finally(() => {
-                setLoading(false);
+                setIsLoading(false);
             });
     }, [data, router]);
+
     return (
         <div
             onClick={handleClick}

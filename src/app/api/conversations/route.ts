@@ -5,11 +5,16 @@ import prisma from "@/app/libs/prismadb";
 export async function POST(request: Request) {
     try {
         const currentUser = await getCurentUser();
+
         const body = await request.json();
+
         const { userId, isGroup, members, name } = body;
+
         if (!currentUser?.id || !currentUser?.email) {
             return new NextResponse("Unauthorised", { status: 401 });
-        } else if (isGroup && (!members || members.length < 2 || !name)) {
+        }
+
+        if (isGroup && (!members || members.length < 2 || !name)) {
             return new NextResponse("invalid data", { status: 400 });
         }
         if (isGroup) {
@@ -34,6 +39,7 @@ export async function POST(request: Request) {
             });
             return NextResponse.json(newConversation);
         }
+
         const existingConvrsations = await prisma.conversation.findMany({
             where: {
                 OR: [
@@ -50,10 +56,12 @@ export async function POST(request: Request) {
                 ],
             },
         });
+
         const singleConversation = existingConvrsations[0];
         if (singleConversation) {
             return NextResponse.json(singleConversation);
         }
+
         const newConversation = await prisma.conversation.create({
             data: {
                 users: {
@@ -66,6 +74,7 @@ export async function POST(request: Request) {
         });
         return NextResponse.json(newConversation);
     } catch (error: any) {
+        console.error(error);
         return new NextResponse("inernal Error", { status: 500 });
     }
 }
