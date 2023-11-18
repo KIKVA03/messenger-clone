@@ -34,7 +34,7 @@ const ConversationBox: React.FC<Props> = ({ data, selected }) => {
         return session.data?.user?.email;
     }, [session.data?.user?.email]);
 
-    const haseSeen = useMemo(() => {
+    const hasSeen = useMemo(() => {
         if (!lastMessage) {
             return false;
         }
@@ -47,10 +47,10 @@ const ConversationBox: React.FC<Props> = ({ data, selected }) => {
     }, [userEmail, lastMessage]);
 
     const lastMessageText = useMemo(() => {
-        if (!lastMessage?.image) {
+        if (lastMessage?.image) {
             return "Sent an image";
         }
-        if (lastMessage.body) {
+        if (lastMessage?.body) {
             return lastMessage.body;
         }
 
@@ -93,7 +93,7 @@ const ConversationBox: React.FC<Props> = ({ data, selected }) => {
                     truncate
                     text-sm
                     `,
-                            haseSeen ? "text-gray-500" : "text-black font-medium"
+                            hasSeen ? "text-gray-500" : "text-black font-medium"
                         )}
                     >
                         {lastMessageText}
