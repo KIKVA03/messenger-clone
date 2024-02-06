@@ -9,6 +9,7 @@ import prisma from "@/app/libs/prismadb";
 
 export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(prisma),
+    // aq es github id da secret .env fileshia
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID as string,

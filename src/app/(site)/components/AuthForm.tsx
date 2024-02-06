@@ -70,7 +70,7 @@ export default function AuthForm(props: Props) {
                 .catch(() => toast.error("Something went wrong!"))
                 .finally(() => setIsLoading(false));
         }
-
+        // es "credentials" aq 90% aris routhsi gaketebuli credentialProvideris name da amit vidzaxebt mag functions
         if (variant === "LOGIN") {
             signIn("credentials", {
                 redirect: false,

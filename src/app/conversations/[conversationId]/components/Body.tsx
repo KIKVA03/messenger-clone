@@ -15,6 +15,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
     const bottomRef = useRef<HTMLDivElement>(null);
 
     const { conversationId } = useConversation();
+    // ess avtomaturad rogorc ki es page gaixsnebva an body elementi requests gaagzavnis backshi ro am userma sms daseena
     useEffect(() => {
         axios.post(`/api/conversations/${conversationId}/seen`);
     }, [conversationId]);

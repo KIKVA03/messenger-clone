@@ -12,7 +12,7 @@ export async function POST(request: Request) {
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
-
+        // aq prisma create aketebs mongodbshi cherez pismit daregistrirebul users
         const user = await prisma.user.create({
             data: {
                 email,

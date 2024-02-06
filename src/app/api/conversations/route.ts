@@ -23,6 +23,7 @@ export async function POST(request: Request) {
                     name,
                     isGroup,
                     users: {
+                        // aq es connect rodesac sheikmneba bgazasho prismis meshveobit conversation group iq daamatebs current users kvemot mititebuli objectis meshveobit
                         connect: [
                             ...members.map((member: { value: string }) => ({
                                 id: member.value,
@@ -33,6 +34,8 @@ export async function POST(request: Request) {
                         ],
                     },
                 },
+                // marto idebs daaabrunebs am includes meshveobit potos da sxva fieldebis gareshe
+
                 include: {
                     users: true,
                 },

@@ -1,12 +1,12 @@
 "use cient";
 import Avatar from "@/app/components/Avatar";
-import Modal from "@/app/components/Modal";
 import useOtherUser from "@/app/hooks/useOtherUser";
 import { Transition, Dialog } from "@headlessui/react";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
 import React, { Fragment, useMemo, useState } from "react";
 import { IoClose, IoTrash } from "react-icons/io5";
+import ConfirmModal from "./ConfirmModal";
 type Props = {
     isOpen: boolean;
     onClose: () => void;
@@ -17,7 +17,7 @@ type Props = {
 
 const ProfileDrawer: React.FC<Props> = ({ isOpen, data, onClose }) => {
     const otherUser = useOtherUser(data);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 
     const joinedDate = useMemo(() => {
         return format(new Date(otherUser.createdAt), "PP");
@@ -34,14 +34,12 @@ const ProfileDrawer: React.FC<Props> = ({ isOpen, data, onClose }) => {
 
         return "Active";
     }, [data]);
-
+    const arr = [1, 2, 3, 4, 5, 67, 8, 90];
     return (
         <>
-            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <div className="bg-white p-5 ">
-                    <p>HELLO MODAL</p>
-                </div>
-            </Modal>
+            <ConfirmModal isOpen={confirmModalOpen} onClose={() => setConfirmModalOpen(false)} />
+
+            {/* es aris modali shavifoni mtliani */}
             <Transition.Root show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50 " onClose={onClose}>
                     <Transition.Child
@@ -55,6 +53,7 @@ const ProfileDrawer: React.FC<Props> = ({ isOpen, data, onClose }) => {
                     >
                         <div className="fixed inset-0 bg-black bg-opacity-40" />
                     </Transition.Child>
+                    {/* <></> */}
                     <div className="fixd inset-0 overflow-hidden">
                         <div className="absolute inset-0 overflow-hidden">
                             <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
@@ -95,7 +94,9 @@ const ProfileDrawer: React.FC<Props> = ({ isOpen, data, onClose }) => {
                                                     </div>
                                                     <div className="flex gap-10 my-8 ">
                                                         <div
-                                                            onClick={() => setIsModalOpen(true)}
+                                                            onClick={() =>
+                                                                setConfirmModalOpen(true)
+                                                            }
                                                             className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75"
                                                         >
                                                             <div className="w-10 h-10 bg-neutral-100 rounded-full flex items-center justify-center">

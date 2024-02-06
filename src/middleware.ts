@@ -5,7 +5,7 @@ export default withAuth({
         signIn: "/",
     },
 });
-
+//aq qvemot aris romel routebsac icavs da zemot kidev weria saac unda gadaamisamartos
 export const config = {
     matcher: ["/users/:path*", "/conversations/:path*"],
 };

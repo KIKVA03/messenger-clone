@@ -19,8 +19,7 @@ const MessageBox = ({ data, isLast }: Props) => {
     //es abrunebs strings vinc daseena message
     const seenList = (data?.seen || [])
         .filter((user) => user.email !== data.sender.email)
-        .map((user) => user.name)
-        .join(", ");
+        .map((user) => user.name);
 
     const container = clsx("flex gap-3 p-4", isOwn && "justify-end");
     const avatar = clsx(isOwn && "order-2");
