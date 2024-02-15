@@ -1,6 +1,7 @@
 import getCurentUser from "@/app/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
+import { pusherServer } from "@/app/libs/pusher";
 
 export async function POST(request: Request) {
     try {
@@ -17,6 +18,7 @@ export async function POST(request: Request) {
         if (isGroup && (!members || members.length < 2 || !name)) {
             return new NextResponse("invalid data", { status: 400 });
         }
+
         if (isGroup) {
             const newConversation = await prisma.conversation.create({
                 data: {
@@ -39,6 +41,13 @@ export async function POST(request: Request) {
                 include: {
                     users: true,
                 },
+            });
+
+            //pusher
+            newConversation.users.forEach((user) => {
+                if (user.email) {
+                    pusherServer.trigger(user.email, "conversation:new", newConversation);
+                }
             });
             return NextResponse.json(newConversation);
         }
@@ -74,6 +83,13 @@ export async function POST(request: Request) {
             include: {
                 users: true,
             },
+        });
+        //pusher
+
+        newConversation.users.forEach((user) => {
+            if (user.email) {
+                pusherServer.trigger(user.email, "conversation:new", newConversation);
+            }
         });
         return NextResponse.json(newConversation);
     } catch (error: any) {
